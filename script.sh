@@ -92,10 +92,12 @@ fi
 
 echo '::group:: Running rubocop with reviewdog 🐶 ...'
 # shellcheck disable=SC2086
-echo "executing rubocop on:\n `git diff --name-only origin/master`"
+command=`git diff --name-only origin/master | sed '/Gemfile/d;/\.yml/d'`
+
+echo "executing rubocop on:\n${command}"
 
 ${BUNDLE_EXEC}rubocop ${INPUT_RUBOCOP_FLAGS} --require ${GITHUB_ACTION_PATH}/rdjson_formatter/rdjson_formatter.rb --format RdjsonFormatter \
-`git diff --name-only origin/master` \
+${command} \
   | reviewdog -f=rdjson \
       -name="${INPUT_TOOL_NAME}" \
       -reporter="${INPUT_REPORTER}" \
