@@ -92,8 +92,7 @@ fi
 
 echo '::group:: Running rubocop with reviewdog 🐶 ...'
 # shellcheck disable=SC2086
-reference=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`
-diff_files=`git diff --name-only remotes/origin/${reference} | sed '/Gemfile/d;/\.yml/d'`
+diff_files=`git diff --name-only ${INPUT_REFERENCE_BRANCH} | sed '${INPUT_IGNORED_FILES_REGEXP}'`
 
 if [ -z "$diff_files" ]
 then
