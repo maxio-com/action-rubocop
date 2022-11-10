@@ -92,14 +92,14 @@ fi
 
 echo '::group:: Running rubocop with reviewdog 🐶 ...'
 # shellcheck disable=SC2086
-reference=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`
-diff_files=`git diff --name-only origin/${reference} | sed '/Gemfile/d;/\.yml/d'`
+reference=`git symbolic-ref refs/remotes/origin/HEAD`
+diff_files=`git diff --name-only ${reference} | sed '/Gemfile/d;/\.yml/d'`
 
 if [ -z "$diff_files" ]
 then
   echo "Executing rubocop on:\n${diff_files}"
   ${BUNDLE_EXEC}rubocop ${INPUT_RUBOCOP_FLAGS} --require ${GITHUB_ACTION_PATH}/rdjson_formatter/rdjson_formatter.rb --format RdjsonFormatter \
-  ${command} \
+  ${diff_files} \
     | reviewdog -f=rdjson \
         -name="${INPUT_TOOL_NAME}" \
         -reporter="${INPUT_REPORTER}" \
