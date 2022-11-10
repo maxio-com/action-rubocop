@@ -50,7 +50,7 @@ inputs:
     description: "Reference branch against which the diff will be generated. Default: 'origin/master'"
     default: 'origin/master'
   ignored_files_regexp:
-    description: "Regexp for ignored files from git diff. Default: '/Gemfile/d;/\.yml/d'"
+    description: 'Regexp for ignored files from git diff. Default: "/Gemfile/d;/\.yml/d"'
     default: '/Gemfile/d;/\.yml/d'
 runs:
   using: 'composite'
