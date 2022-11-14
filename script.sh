@@ -92,7 +92,7 @@ fi
 
 echo '::group:: Running rubocop with reviewdog 🐶 ...'
 # shellcheck disable=SC2086
-diff_files=`git diff --name-only ${INPUT_REFERENCE_BRANCH} | sed "${INPUT_IGNORED_FILES_REGEXP}"`
+diff_files=`git diff --name-only ${INPUT_REFERENCE_BRANCH} --diff-filter=AM -- '*.rb'`
 
 if [ -z "$diff_files" ]
 then
